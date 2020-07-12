@@ -5,7 +5,6 @@ import './App.css';
 
 class App extends Component {
 
-
   constructor() {
     super();
     this.state = {
@@ -15,7 +14,7 @@ class App extends Component {
       monsters: [
         {
           name: "Jerome Boateng",
-          id: "1"
+          id: "2"
         },
         {
           name: "Ivan Rakitic",
@@ -23,18 +22,33 @@ class App extends Component {
         },
         {
           name: "Raheem Stirling",
-          id: "1"
+          id: "3"
         },
       ],
     }
   }
+
+  async retrieveUsers() {
+    let responseBody = await fetch('https://jsonplaceholder.typicode.com/users')
+    let jsonResponse = await responseBody.json()
+    console.log(responseBody)
+    return jsonResponse
+  }
+
+  componentDidMount() {
+    this.retrieveUsers().then((json) => {
+      console.log(json)      
+      this.setState({ monsters: json })
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header" >
           <h2>{this.state.firstName}</h2>
           {
-            this.state.monsters.map((monster) => <h1>{monster.name}</h1>)
+            this.state.monsters.map((monster) => <h1 key={monster.id}>{monster.name}</h1>)
           }
           <button onClick={() => this.setState({ firstName: "Jerome" })}>
             This is arrow button
@@ -44,27 +58,4 @@ class App extends Component {
     );
   }
 }
-
-// export App1
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
 export default App;
