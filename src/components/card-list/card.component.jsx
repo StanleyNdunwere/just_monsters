@@ -10,7 +10,7 @@ import monster4 from '../card-list/img/monster4.png'
 class CardList extends Component {
   constructor() {
     super()
-  this.monsterImage = [
+    this.monsterImage = [
       star,
       monster,
       monster1,
@@ -25,18 +25,18 @@ class CardList extends Component {
       monster4,
     ]
   }
-  
+
 
   render() {
-   
+
     let count = 0;
     return (
       <div className="card-list-container">
         {
           this.props.monsters.map((monster) => {
             count += 1;
-            return <div className="card-item" key ={monster.id}>
-              <img className = "monster-img" src={this.monsterImage[count]} alt="this is a monster" />
+            return <div className="card-item" key={monster.id}>
+              <img className="monster-img" src={this.monsterImage[count]} alt="this is a monster" />
               <div className="name-box">
                 <p>{monster.name}</p>
               </div>
@@ -48,11 +48,11 @@ class CardList extends Component {
           )
 
         }
-
-
       </div>
     )
   }
+
+
 
 }
 export default CardList

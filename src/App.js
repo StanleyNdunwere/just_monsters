@@ -12,10 +12,16 @@ class App extends Component {
       lastName: "Last Name is Stanley",
       middleName: "Middle Name is Stanley",
       monsters: [],
+      searchField: "",
+      monstersToDisplay: [],
     }
-
   }
 
+
+  setMonstersToDisplay(text) {
+    let monsters = this.state.monsters.filter((monster) => monster.name.toLowerCase().includes(text.toLowerCase()))
+    this.setState({ monstersToDisplay: monsters })
+  }
   async retrieveUsers() {
     let responseBody = await fetch('https://jsonplaceholder.typicode.com/users')
     let jsonResponse = await responseBody.json()
@@ -24,16 +30,30 @@ class App extends Component {
 
   componentDidMount() {
     this.retrieveUsers().then((json) => {
-      this.setState({ monsters: [...json] })
+      this.setState({ monsters: [...json], monstersToDisplay: [...json] })
     })
   }
 
   render() {
+
+    const setSearchField = (text) => {
+      this.setState({ searchField: text })
+
+    }
+
+    const setMonstersToDisplay = () => {
+      let text = this.state.searchField
+      if (text !== null || text !== "") {
+        let monsters = this.state.monsters.filter((monster) => monster.name.toLowerCase().includes(text.toLowerCase()))
+        this.setState({ monstersToDisplay: monsters }, () => { console.log(this.state) })
+      }
+    }
+
     return (
       <div className="App">
         <header className="App-header"  >
-          <SearchBox></SearchBox>
-          <CardList monsters={this.state.monsters}> </CardList>
+          <SearchBox setSearchFieldText={setSearchField} setMonstersToDisplay={setMonstersToDisplay}></SearchBox>
+          <CardList monsters={this.state.monstersToDisplay}> </CardList>
         </header>
       </div >
     );
