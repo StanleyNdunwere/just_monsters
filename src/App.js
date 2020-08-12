@@ -52,6 +52,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header"  >
+          <h1>Monsters Rolodex</h1>
           <SearchBox setSearchFieldText={setSearchField} setMonstersToDisplay={setMonstersToDisplay}></SearchBox>
           <CardList monsters={this.state.monstersToDisplay}> </CardList>
         </header>
