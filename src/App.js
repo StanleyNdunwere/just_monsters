@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import CardList from './components/card-list/card.component'
+import SearchBox from './components/search-box/search-box.component'
 
 class App extends Component {
 
@@ -10,48 +11,29 @@ class App extends Component {
       firstName: "First Name is Stanley",
       lastName: "Last Name is Stanley",
       middleName: "Middle Name is Stanley",
-      monsters: [
-        {
-          name: "Jerome Boateng",
-          id: "2"
-        },
-        {
-          name: "Ivan Rakitic",
-          id: "1"
-        },
-        {
-          name: "Raheem Stirling",
-          id: "3"
-        },
-      ],
+      monsters: [],
     }
+
   }
 
   async retrieveUsers() {
     let responseBody = await fetch('https://jsonplaceholder.typicode.com/users')
     let jsonResponse = await responseBody.json()
-    console.log(responseBody)
     return jsonResponse
   }
 
   componentDidMount() {
     this.retrieveUsers().then((json) => {
-      console.log(json)      
-      this.setState({ monsters: json })
+      this.setState({ monsters: [...json] })
     })
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header" >
-          <h2>{this.state.firstName}</h2>
-          {
-            this.state.monsters.map((monster) => <h1 key={monster.id}>{monster.name}</h1>)
-          }
-          <button onClick={() => this.setState({ firstName: "Jerome" })}>
-            This is arrow button
-          </button>
+        <header className="App-header"  >
+          <SearchBox></SearchBox>
+          <CardList monsters={this.state.monsters}> </CardList>
         </header>
       </div >
     );
