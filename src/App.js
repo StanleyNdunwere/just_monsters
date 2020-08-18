@@ -8,9 +8,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      firstName: "First Name is Stanley",
-      lastName: "Last Name is Stanley",
-      middleName: "Middle Name is Stanley",
       monsters: [],
       searchField: "",
       monstersToDisplay: [],
